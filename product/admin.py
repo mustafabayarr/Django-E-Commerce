@@ -10,8 +10,9 @@ class ProductImageInline(admin.TabularInline):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title','status']
+    list_display = ['title','status','image_tag']
     list_filter = ['status']
+    readonly_fields = ['image_tag']
 
 admin.site.register(Category,CategoryAdmin)
 
@@ -19,10 +20,11 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['title','status','price','amount','category','image_tag']
     list_filter = ['status','category']
     inlines = [ProductImageInline]  #Image modelini aktif ettik
+    readonly_fields = ['image_tag']
 
 admin.site.register(Product,ProductAdmin) #modeli oluşturduktan sonra adminde göstermek için kullanılır.
 
 class ImagesAdmin(admin.ModelAdmin):
     list_display = ['title','product','image_tag']
-
+    readonly_fields = ['image_tag']
 admin.site.register(Images,ImagesAdmin)
