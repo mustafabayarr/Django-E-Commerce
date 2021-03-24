@@ -24,7 +24,7 @@ class Product(models.Model):
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
-    category = models.ForeignKey(Category,on_delete=models.CASCADE) #relation with Category table  .. category_id
+    category = models.ForeignKey(Category,on_delete=models.CASCADE) #relation with Category table  .. category_id .. CASCADE category id silindimi alt elemanlarıyla beraber sil demek.
     title = models.CharField(max_length=100)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
@@ -38,6 +38,16 @@ class Product(models.Model):
 
     def __str__(self):
         return  self.title
+
+class Images(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    title = models.CharField(max_length=50,blank=True) #blank = True alanı boş bırakabiliriz anlamına gelir.
+    image = models.ImageField(blank=True, upload_to='images/')
+
+    def __str__(self):
+        return  self.title
+
+
 
 
 
