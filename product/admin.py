@@ -16,13 +16,13 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title','status','price','amount','category',]
+    list_display = ['title','status','price','amount','category','image_tag']
     list_filter = ['status','category']
     inlines = [ProductImageInline]  #Image modelini aktif ettik
 
 admin.site.register(Product,ProductAdmin) #modeli oluşturduktan sonra adminde göstermek için kullanılır.
 
 class ImagesAdmin(admin.ModelAdmin):
-    list_display = ['title','product','image']
+    list_display = ['title','product','image_tag']
 
 admin.site.register(Images,ImagesAdmin)
