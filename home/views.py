@@ -2,8 +2,10 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
+from home.models import Setting
+
 
 def index(request):
-    textt = "Merhaba"
-    context = {'texttt' : textt}
+    setting = Setting.objects.get(pk=1)
+    context = {'setting' : setting}
     return render(request,'index.html',context)
