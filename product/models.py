@@ -11,9 +11,9 @@ class Category(models.Model):
         ('True','Evet'),
         ('False','Hayır'),
     )
-    title = models.CharField(max_length=100)
-    keywords = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=100,blank=True)
+    keywords = models.CharField(max_length=255,blank=True)
+    description = models.CharField(max_length=255,blank=True)
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10,choices=STATUS)
     slug = models.SlugField()
@@ -40,9 +40,10 @@ class Product(models.Model):
         ('False', 'Hayır'),
     )
     category = models.ForeignKey(Category,on_delete=models.CASCADE) #relation with Category table  .. category_id .. CASCADE category id silindimi alt elemanlarıyla beraber sil demek.
-    title = models.CharField(max_length=100)
-    keywords = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    title = models.CharField(max_length=100,blank=True)
+    slug = models.SlugField(max_length=100,blank=True)
+    keywords = models.CharField(max_length=255,blank=True)
+    description = models.CharField(max_length=255,blank=True)
     image = models.ImageField(blank=True,upload_to='images/')
     price = models.FloatField()
     amount = models.IntegerField()
