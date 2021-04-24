@@ -1,0 +1,81 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Contact | {{ setting.company }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <section id="aa-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="aa-contact-area">
+                        <!-- Contact address -->
+                        <div class="aa-contact-address">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="aa-contact-address-left">
+                                        <form class="comments-form contact-form" action="">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Your Name" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="email" placeholder="Email" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Subject" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" placeholder="Company" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="3"
+                                                          placeholder="Message"></textarea>
+                                            </div>
+                                            <button class="aa-secondary-btn">Send</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="aa-contact-address-right">
+                                        <address>
+                                            <h4>{{ setting.company }}</h4>
+                                            <p>{{ setting.description}}</p>
+                                            <p><span class="fa fa-home"></span>{{ setting.address}}</p>
+                                            <p><span class="fa fa-phone"></span>{{setting.phone}}</p>
+                                            <p><span class="fa fa-envelope"></span>Email: {{ setting.email}}</p>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

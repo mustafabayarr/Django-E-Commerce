@@ -1,0 +1,31 @@
+{% extends 'homebase.html' %}
+
+{% block title %}About Us | {{ setting.company }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url}}' />
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+  <!-- 404 error section -->
+  <section id="aa-error">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-error-area">
+            {{ setting.aboutus | safe}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / 404 error section -->
+
+{% endblock %}
