@@ -18,7 +18,8 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
                         {% recursetree category %}
-                            <li><a href="#">{{ node.title }} <span class="caret"></span></a>
+                            <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.title }} <span
+                                    class="caret"></span></a>
                                 {% if not node.is_leaf_node %}
                                     <ul class="dropdown-menu" class="children">
                                         <li><a href="#">{{ children }}</a></li>
