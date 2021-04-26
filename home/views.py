@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from home.models import Setting, ContactForm, ContactFormMessage
-from product.models import Product, Category
+from product.models import Product, Category, Images
 
 
 def index(request):
@@ -70,5 +70,11 @@ def category_products(request,id,slug):
 
 
 def product_detail(request,id,slug):
-    mesaj = "Ürün",id,"/",slug
-    return HttpResponse(mesaj)
+    category = Category.objects.all()
+    product = Product.objects.get(pk=id)
+    images = Images.objects.filter(product_id=id)
+
+    context = {'product':product,
+               'category':category,
+               'images':images}
+    return render(request, 'product_detail.html', context)
