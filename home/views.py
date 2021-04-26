@@ -12,10 +12,19 @@ def index(request):
     setting = Setting.objects.get(pk=1)
     sliderdata = Product.objects.all()[:4]
     category = Category.objects.all()
+    popular = Product.objects.all()[:4]
+    latest = Product.objects.all().order_by('-id')[:4]
+    featured = Product.objects.all().order_by('?')[:4]
+
+
 
     context = {'setting' : setting,
                'sliderdata':sliderdata,
-               'category':category}
+               'category':category,
+               'popular':popular,
+               'latest':latest,
+               'featured':featured,
+               }
     return render(request,'index.html',context)
 
 def aboutUs(request):
@@ -58,3 +67,8 @@ def category_products(request,id,slug):
     category = Category.objects.all()
     context = {'products':products,'category':category,'category_data':category_data}
     return render(request,'products.html',context)
+
+
+def product_detail(request,id,slug):
+    mesaj = "Ürün",id,"/",slug
+    return HttpResponse(mesaj)
