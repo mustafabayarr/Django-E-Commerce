@@ -1,3 +1,5 @@
+import uuid
+
 import self as self
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
@@ -5,6 +7,7 @@ from django.db import models
 
 # Create your models here.
 from django.forms import ModelForm
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -20,7 +23,7 @@ class Category(MPTTModel):
     description = models.CharField(max_length=255,blank=True)
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10,choices=STATUS)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True,null=False)
     parent = TreeForeignKey('self',blank=True,null=True,related_name='children',on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -47,6 +50,8 @@ class Category(MPTTModel):
          else:
              return ""
 
+    def get_absolute_url(self):
+        return reverse('category_detail',kwargs={'slug':self.slug})
 
 
 class Product(models.Model):
@@ -56,7 +61,7 @@ class Product(models.Model):
     )
     category = models.ForeignKey(Category,on_delete=models.CASCADE) #relation with Category table  .. category_id .. CASCADE category id silindimi alt elemanlarıyla beraber sil demek.
     title = models.CharField(max_length=100,blank=True)
-    slug = models.SlugField(max_length=100,blank=True)
+    slug = models.SlugField(unique=True,null=False)
     keywords = models.CharField(max_length=255,blank=True)
     description = models.CharField(max_length=255,blank=True)
     image = models.ImageField(blank=True,upload_to='images/')
@@ -76,6 +81,9 @@ class Product(models.Model):
         else:
             return ""
     image_tag.short_description = 'Image'
+
+    def get_absolute_url(self):
+        return reverse('product_detail',kwargs={'slug':self.slug})
 
 class Images(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
