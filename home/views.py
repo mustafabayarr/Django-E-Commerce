@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from home.forms import SearchForm
+from home.forms import SearchForm, SignUpForm
 from home.models import Setting, ContactForm, ContactFormMessage
 from product.models import Product, Category, Images, Comment
 
@@ -128,3 +128,19 @@ def login_view(request):
     category = Category.objects.all()
     context = {'category':category,}
     return render(request,'login.html',context)
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username,password=password)
+            login(request,user)
+        return HttpResponseRedirect('/')
+    form = SignUpForm()
+    category = Category.objects.all()
+    context = {'category':category,'form':form}
+    return render(request,'register.html',context)
