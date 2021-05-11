@@ -57,7 +57,7 @@
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
                                 {% if user.id is not None %}
-                                    <li><a href="account.html">{{ user.first_name }}</a></li>
+                                    <li><a href="/user">{{ user.first_name }}</a></li>
                                 {% else %}
                                     <li><a href="/login/">Login</a></li>
                                     <li><a href="/register/">Register</a></li>
