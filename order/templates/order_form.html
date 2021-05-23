@@ -1,0 +1,231 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Order Form{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <!-- Cart view section -->
+    <section id="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="checkout-area">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkout-left">
+                                    <div class="panel-group" id="accordion">
+
+                                        <!-- Billing Details -->
+                                        <div class="panel panel-default aa-checkout-billaddress">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion"
+                                                       href="#collapseThree">
+                                                        Billing Details
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <div id="collapseThree" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="first_name"
+                                                                           value="{{ user.first_name }}"
+                                                                           placeholder="First Name*">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="last_name"
+                                                                           value="{{ user.last_name }}"
+                                                                           placeholder="Last Name*">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="tel" name="phone"
+                                                                           value="{{ profile.phone }}"
+                                                                           placeholder="Phone*">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" value="{{ profile.address }}"
+                                                                           name="address">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <select>
+                                                                        <option value="{{ profile.city }} "
+                                                                                selected>{{ profile.city }}</option>
+                                                                        <option value="İstanbul">İstanbul</option>
+                                                                        <option value="Ankara">Ankara</option>
+                                                                        <option value="Şırnak">Şırnak</option>
+                                                                        <option value="Aydın">Aydın</option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="country"
+                                                                           value="{{ profile.country }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button type="submit" class="aa-browse-btn">Complete Order
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+
+                                            <!-- Shipping Address -->
+                                            <div class="panel panel-default aa-checkout-billaddress">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                           href="#collapseFour">
+                                                            Payment Information
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseFour" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="total" readonly
+                                                                           value="${{ total }}"
+                                                                           placeholder="Total">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="holder"
+                                                                           placeholder="Credit Card Holder">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="number"
+                                                                           placeholder="Credit Card Number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="ecpdate"
+                                                                           placeholder="Credit Exp Date/Year">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="aa-checkout-single-bill">
+                                                                    <input type="text" name="secnumber"
+                                                                           placeholder="Security Number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+    <!-- Cart view section -->
+    <section id="cart-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="cart-view-area">
+                        <div class="cart-view-table">
+                            <form action="">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for rs in schopcart %}
+                                            <tr>
+                                                <td><a class="remove" href="/order/deletefromcart/{{ rs.id }}/"
+                                                       onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                                                    <fa class="fa fa-close"></fa>
+                                                </a></td>
+                                                <td><a href="#"><img src="{{ rs.product.image.url }}" alt="img"></a>
+                                                </td>
+                                                <td><a class="aa-cart-title" href="#">{{ rs.product }}</a></td>
+                                                <td>{{ rs.product.price }}</td>
+                                                <td>{{ rs.quantity }}</td>
+                                                <td>{{ rs.amount }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <!-- Cart Total view -->
+                            <div class="cart-view-total">
+                                <h4>Cart Totals</h4>
+                                <table class="aa-totals-table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{ total }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a href="/order/orderproduct/" class="aa-cart-view-btn">Proced to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / Cart view section -->
+{% endblock %}
