@@ -1,0 +1,47 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ user.first_name }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+
+                <div class="col-md-9">
+                    <div class="media">
+                        <img src="{{ user.userprofile.image.url }}" style="height:150px; border-radius: 45px; ">
+                    </div>
+
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{ user_form.as_p }}
+                            {{ profile_form.as_p }}
+                        </fieldset>
+                        <button type="submit" class="aa-shop-now-btn aa-secondary-btn">Update Profile</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
