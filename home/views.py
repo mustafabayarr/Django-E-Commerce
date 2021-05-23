@@ -9,10 +9,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from home.forms import SearchForm, SignUpForm
 from home.models import Setting, ContactForm, ContactFormMessage
+from order.models import ShopCart
 from product.models import Product, Category, Images, Comment
 
 
 def index(request):
+    current_user = request.user
+    request.session['cart_items'] = ShopCart.objects.filter(user_id=current_user.id).count()
     setting = Setting.objects.get(pk=1)
     sliderdata = Product.objects.all()[:4]
     category = Category.objects.all()
