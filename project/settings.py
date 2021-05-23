@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'mptt',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
+    'order.apps.OrderConfig'
 
 ]
 
@@ -119,6 +120,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

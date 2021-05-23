@@ -19,26 +19,32 @@ from django.contrib import admin
 from django.urls import path, include
 
 from home import views
+from order import views as orderviews
+
+
+
 
 urlpatterns = [
     path('', include('home.urls')),
-    path('aboutus/',views.aboutUs,name='aboutus'),
-    path('references/',views.references,name='references'),
-    path('contact/',views.contact,name='contact'),
+    path('aboutus/', views.aboutUs, name='aboutus'),
+    path('references/', views.references, name='references'),
+    path('contact/', views.contact, name='contact'),
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
-    path('category/<int:id>/<slug:slug>/',views.category_products,name='category_products'),
-    path('product/<int:id>/<slug:slug>/',views.product_detail,name='product_detail'),
-    path('search/',views.product_search,name='product_search'),
-    path('search_auto/',views.product_search_auto,name='product_search_auto'),
-    path('logout/',views.logout_view,name='logout'),
-    path('login/',views.login_view,name='login'),
-    path('register/',views.register_view,name='register'),
+    path('category/<int:id>/<slug:slug>/', views.category_products, name='category_products'),
+    path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('search/', views.product_search, name='product_search'),
+    path('search_auto/', views.product_search_auto, name='product_search_auto'),
+    path('logout/', views.logout_view, name='logout'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
     path('user/', include('user.urls')),
+    path('order/', include('order.urls')),
+    path('shopcart/',orderviews.shopcart,name="shopcart")
 
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

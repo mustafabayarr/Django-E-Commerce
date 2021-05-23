@@ -1,0 +1,75 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Products Search{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    <!-- Cart view section -->
+    <section id="cart-view">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="cart-view-area">
+                        <div class="cart-view-table">
+                            <form action="">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for rs in schopcart %}
+                                            <tr>
+                                                <td><a class="remove" href="/order/deletefromcart/{{ rs.id }}/"
+                                                onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                                                    <fa class="fa fa-close"></fa>
+                                                </a></td>
+                                                <td><a href="#"><img src="{{ rs.product.image.url}}" alt="img"></a></td>
+                                                <td><a class="aa-cart-title" href="#">{{ rs.product}}</a></td>
+                                                <td>{{ rs.product.price }}</td>
+                                                <td>{{rs.quantity}}</td>
+                                                <td>{{rs.amount}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <!-- Cart Total view -->
+                            <div class="cart-view-total">
+                                <h4>Cart Totals</h4>
+                                <table class="aa-totals-table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{total}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / Cart view section -->
+
+{% endblock %}
