@@ -1,0 +1,61 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ profile.user_name }} | Orders{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rs in orders %}
+                        <tr>
+                            <td scope="col">{{ rs.id }}</td>
+                            <td scope="col">{{ rs.first_name }}</td>
+                            <td scope="col">{{ rs.last_name }}</td>
+                            <td scope="col">{{ rs.total }}</td>
+                            <td scope="col">{{ rs.status }}</td>
+                            <td scope="col">{{ rs.create_at }}</td>
+                            <td scope="col"><a class=" aa-secondary-btn" href="/user/orderdetail/{{ rs.id }}"> Detay </a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / 404 error section -->
+
+{% endblock %}

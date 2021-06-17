@@ -1,4 +1,5 @@
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.checks import messages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,10 +7,11 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from home.models import UserProfile
+from order.models import Order, OrderProduct
 from product.models import Category
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
-
+@login_required(login_url='/login')
 def index(request):
     category = Category.objects.all()
     current_user = request.user
@@ -17,7 +19,7 @@ def index(request):
     context = {'category': category, 'profile': profile}
     return render(request, 'user_profile.html', context)
 
-
+@login_required(login_url='/login')
 def user_update(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -37,7 +39,7 @@ def user_update(request):
         }
         return render(request, 'user_update.html', context)
 
-
+@login_required(login_url='/login')
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -49,3 +51,31 @@ def change_password(request):
         category = Category.objects.all()
         form = PasswordChangeForm(request.user)
         return render(request,'change_password.html',{'form':form,'category':category})
+
+@login_required(login_url='/login')
+def orders(request):
+    category = Category.objects.all()
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id=current_user.id)
+    orders = Order.objects.filter(user_id=current_user.id)
+    context = {
+        'category':category,
+        'orders':orders,
+        'profile': profile
+    }
+    return render(request,"user_orders.html",context)
+
+@login_required(login_url='/login')
+def orderdetail(request,id):
+    category = Category.objects.all()
+    current_user = request.user
+    profile = UserProfile.objects.get(user_id=current_user.id)
+    order = Order.objects.get(user_id=current_user.id,id=id)
+    orderitems = OrderProduct.objects.filter(order_id=id)
+    context = {
+        'category': category,
+        'order': order,
+        'profile': profile,
+        'orderitems': orderitems
+    }
+    return render(request, "user_order_detail.html", context)

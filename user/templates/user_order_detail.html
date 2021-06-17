@@ -1,0 +1,94 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ profile.user_name }} | Order Detail{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Shipping Inf</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td scope="col">{{ order.user }}</td>
+                            <td scope="col">{{ order.phone }}</td>
+                            <td scope="col">{{ order.address }}</td>
+                            <td scope="col">{{ order.city }}</td>
+                            <td scope="col">{{ order.country }}</td>
+                            <td scope="col">{{ order.status }}</td>
+                            <td scope="col">{{ order.create_at }}</td>
+                            <td scope="col">{{ order.adminnote }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rs in orderitems %}
+                            <tr>
+                                <td scope="col"><img src="{{ rs.product.image.url }} " style="height: 100px"></td>
+                                <td scope="col">
+                                    <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+                                        {{ rs.product.title }}
+                                    </a>
+                                </td>
+                                </a>
+                                <td scope="col">{{ rs.price }}</td>
+                                <td scope="col">{{ rs.quantity }}</td>
+                                <td scope="col">{{ rs.amount }}</td>
+                                <td scope="col">{{ rs.status }}</td>
+                                <td scope="col">{{ rs.create_at }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / 404 error section -->
+
+{% endblock %}
