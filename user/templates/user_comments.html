@@ -1,0 +1,67 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ profile.user_name }} | Comments{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Detail</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rs in comments %}
+                            <tr>
+                                <td scope="col">{{ rs.product.title }}</td>
+                                <td scope="col">{{ rs.rate }}</td>
+                                <td scope="col">{{ rs.subject }}</td>
+                                <td scope="col">{{ rs.comment }}</td>
+                                <td scope="col">{{ rs.status }}</td>
+                                <td scope="col">{{ rs.create_at }}</td>
+                                <td scope="col">
+                                    <a class=" aa-secondary-btn"
+                                       href="/user/deletecomment/{{ rs.id }}/"
+                                       onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / 404 error section -->
+
+{% endblock %}
