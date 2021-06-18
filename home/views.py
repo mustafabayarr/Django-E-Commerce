@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from home.forms import SearchForm, SignUpForm
-from home.models import Setting, ContactForm, ContactFormMessage, UserProfile
+from home.models import Setting, ContactForm, ContactFormMessage, UserProfile, FAQ
 from order.models import ShopCart
 from product.models import Product, Category, Images, Comment
 
@@ -153,3 +153,10 @@ def register_view(request):
     category = Category.objects.all()
     context = {'category':category,'form':form}
     return render(request,'register.html',context)
+
+
+def faq(request):
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context = {'category':category,'faq':faq}
+    return render(request,'faq.html',context)

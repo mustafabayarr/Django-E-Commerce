@@ -42,7 +42,8 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
     path('user/', include('user.urls')),
     path('order/', include('order.urls')),
-    path('shopcart/',orderviews.shopcart,name="shopcart")
+    path('shopcart/',orderviews.shopcart,name="shopcart"),
+    path('faq/',views.faq,name="faq"),
 
 ]
 
