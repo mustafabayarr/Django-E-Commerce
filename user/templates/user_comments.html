@@ -40,7 +40,11 @@
                         <tbody>
                         {% for rs in comments %}
                             <tr>
-                                <td scope="col">{{ rs.product.title }}</td>
+                                <td scope="col">
+                                    <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+                                        {{ rs.product.title }}
+                                    </a>
+                                </td>
                                 <td scope="col">{{ rs.rate }}</td>
                                 <td scope="col">{{ rs.subject }}</td>
                                 <td scope="col">{{ rs.comment }}</td>
@@ -48,7 +52,7 @@
                                 <td scope="col">{{ rs.create_at }}</td>
                                 <td scope="col">
                                     <a class=" aa-secondary-btn"
-                                       href="/user/deletecomment/{{ rs.id }}/"
+                                       href="/user/deletecomment/{{ rs.id }}"
                                        onclick="return confirm('Silmek istediğinize emin misiniz?')">
                                         Delete
                                     </a>

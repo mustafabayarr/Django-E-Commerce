@@ -92,3 +92,10 @@ def comments(request):
         'profile': profile
     }
     return render(request, "user_comments.html", context)
+
+@login_required(login_url='/login')
+def deletecomment(request,id):
+    current_user = request.user
+    Comment.objects.filter(id=id,user_id=current_user.id).delete()
+
+    return HttpResponseRedirect('/user/comments')
