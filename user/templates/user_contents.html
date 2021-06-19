@@ -41,7 +41,11 @@
                             <tr>
                                 <td scope="col"><img src="{{ rs.image.url }} " style="height: 100px"></td>
                                 <td scope="col">{{ rs.category }}</td>
-                                <td scope="col">{{ rs.title }}</td>
+                                <td scope="col">
+                                    <a href="/product/{{ rs.id }}/{{ rs.slug }}">
+                                        {{ rs.title }}
+                                    </a>
+                                </td>
                                 <td scope="col">{{ rs.price }}</td>
                                 <td scope="col">{{ rs.amount }}</td>
                                 <td scope="col">{{ rs.create_at }}</td>
