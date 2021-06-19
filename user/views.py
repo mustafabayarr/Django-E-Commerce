@@ -161,5 +161,7 @@ def contentedit(request,id):
         return render(request,'user_addcontents.html',context)
 
 @login_required(login_url='/login')
-def contentdelete(request):
-    return None
+def contentdelete(request,id):
+    current_user = request.user
+    Product.objects.filter(id=id,user_id=current_user.id).delete()
+    return HttpResponseRedirect('/user/contents')
