@@ -1,0 +1,46 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ profile.user_name }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+
+                <div class="col-md-9">
+                   {% load static %}
+                    <h4>ADD PRODUCT</h4>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            {{ form.media }}
+                            {{ form.as_p }}
+                        </fieldset>
+                        <div class="form-group">
+                            <button class="bg-primary" type="submit">SAVE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / 404 error section -->
+
+{% endblock %}

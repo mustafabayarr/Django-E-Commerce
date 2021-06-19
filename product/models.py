@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-from django.forms import ModelForm, Select, TextInput, FileInput
+from django.forms import ModelForm, Select, TextInput, FileInput, forms,ChoiceField
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
@@ -92,7 +92,7 @@ class ProductForm(ModelForm):
         model = Product
         fields = ['category','title','slug','keywords','description','image','price','amount','detail']
         widgets = {
-            'category' : Select(attrs={'class':'input','placeholder':'category'}),
+            'category': Select(),
             'title' : TextInput(attrs={'class':'input','placeholder':'title'}),
             'slug' : TextInput(attrs={'class':'input','placeholder':'slug'}),
             'keywords' : TextInput(attrs={'class':'input','placeholder':'keywords'}),
@@ -102,6 +102,9 @@ class ProductForm(ModelForm):
             'amount': TextInput(attrs={'class': 'input', 'placeholder': 'amount'}),
             'detail': CKEditorWidget()
         }
+
+
+
 
 class Images(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)

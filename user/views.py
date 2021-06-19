@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from home.models import UserProfile
 from order.models import Order, OrderProduct
-from product.models import Category, Comment, Product
+from product.models import Category, Comment, Product, ProductForm
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required(login_url='/login')
@@ -110,14 +110,41 @@ def contents(request):
         'product':product
     }
     return render(request,'user_contents.html',context)
-
+@login_required(login_url='/login')
 def addcontent(request):
-    return None
+    if request.method == 'POST':
+        form = ProductForm(request.POST,request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Product()
+            data.user_id = current_user.id
+            data.category = form.cleaned_data['category']
+            data.title = form.cleaned_data['title']
+            data.slug = form.cleaned_data['slug']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.price = form.cleaned_data['price']
+            data.amount = form.cleaned_data['amount']
+            data.detail = form.cleaned_data['detail']
+            data.status = 'False'
+            data.save()
+            return HttpResponseRedirect('/user/contents')
+        else:
+            HttpResponseRedirect('/user/addcontents')
+    else:
+        category = Category.objects.all()
+        form = ProductForm()
+        context = {
+            'category':category,
+            'form':form
+        }
+        return render(request,'user_addcontents.html',context)
 
-
+@login_required(login_url='/login')
 def contentedit(request):
     return None
 
-
+@login_required(login_url='/login')
 def contentdelete(request):
     return None
