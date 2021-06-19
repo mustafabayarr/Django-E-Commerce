@@ -142,8 +142,23 @@ def addcontent(request):
         return render(request,'user_addcontents.html',context)
 
 @login_required(login_url='/login')
-def contentedit(request):
-    return None
+def contentedit(request,id):
+    product = Product.objects.get(id=id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES,instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/user/contents')
+        else:
+            HttpResponseRedirect('/user/addcontents')
+    else:
+        category = Category.objects.all()
+        form = ProductForm(instance=product)
+        context = {
+            'category': category,
+            'form': form
+        }
+        return render(request,'user_addcontents.html',context)
 
 @login_required(login_url='/login')
 def contentdelete(request):
