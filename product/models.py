@@ -1,12 +1,13 @@
 import uuid
 
 import self as self
+from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-from django.forms import ModelForm
+from django.forms import ModelForm, Select, TextInput, FileInput
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
@@ -59,6 +60,7 @@ class Product(models.Model):
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     category = models.ForeignKey(Category,on_delete=models.CASCADE) #relation with Category table  .. category_id .. CASCADE category id silindimi alt elemanlarıyla beraber sil demek.
     title = models.CharField(max_length=100,blank=True)
     slug = models.SlugField(unique=True,null=False)
@@ -84,6 +86,22 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail',kwargs={'slug':self.slug})
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ['category','title','slug','keywords','description','image','price','amount','detail']
+        widgets = {
+            'category' : Select(attrs={'class':'input','placeholder':'category'}),
+            'title' : TextInput(attrs={'class':'input','placeholder':'title'}),
+            'slug' : TextInput(attrs={'class':'input','placeholder':'slug'}),
+            'keywords' : TextInput(attrs={'class':'input','placeholder':'keywords'}),
+            'description' : TextInput(attrs={'class':'input','placeholder':'description'}),
+            'image' :FileInput(attrs={'class':'input','placeholder':'image'}),
+            'price': TextInput(attrs={'class': 'input', 'placeholder': 'price'}),
+            'amount': TextInput(attrs={'class': 'input', 'placeholder': 'amount'}),
+            'detail': CKEditorWidget()
+        }
 
 class Images(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)

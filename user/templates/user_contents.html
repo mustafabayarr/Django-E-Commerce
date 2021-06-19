@@ -1,0 +1,72 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{ profile.user_name }}{% endblock %}
+{% block keywords %}{{ setting.keywords }}{% endblock %}
+{% block description %}{{ setting.description }}{% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}'/>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- 404 error section -->
+    <section id="aa-error">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "user_panel.html" %}
+                </div>
+                <!-- catg header banner section -->
+
+                <div class="col-md-9">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Image</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rs in product %}
+                            <tr>
+                                <td scope="col"><img src="{{ rs.image.url }} " style="height: 100px"></td>
+                                <td scope="col">{{ rs.category }}</td>
+                                <td scope="col">{{ rs.title }}</td>
+                                <td scope="col">{{ rs.price }}</td>
+                                <td scope="col">{{ rs.amount }}</td>
+                                <td scope="col">{{ rs.create_at }}</td>
+                                <td>
+                                    <a href="/user/contentedit/{{ rs.id }}" class="aa-shop-now-btn aa-secondary-btn">
+                                        Edit
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/user/contentdelete/{{ rs.id }}" class="aa-shop-now-btn aa-secondary-btn"
+                                       onclick="return confirm('Delete! Are you sure?')">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <a href="/user/addcontent" class="aa-shop-now-btn aa-secondary-btn">
+                            Add Product
+                        </a>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / 404 error section -->
+
+{% endblock %}
