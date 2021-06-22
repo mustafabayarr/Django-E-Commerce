@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from home.models import UserProfile
 from order.models import Order, OrderProduct
-from product.models import Category, Comment, Product, ProductForm
+from product.models import Category, Comment, Product, ProductForm, ProductImageForm, Images
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required(login_url='/login')
@@ -165,3 +165,28 @@ def contentdelete(request,id):
     current_user = request.user
     Product.objects.filter(id=id,user_id=current_user.id).delete()
     return HttpResponseRedirect('/user/contents')
+
+@login_required(login_url='/login')
+def contentaddimage(request,id):
+    if request.method == 'POST':
+        lasturl = request.META.get('HTTP_REFERER')
+        form = ProductImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            data = Images()
+            data.title = form.cleaned_data['title']
+            data.product_id = id
+            data.image = form.cleaned_data['image']
+            data.save()
+            return HttpResponseRedirect(lasturl)
+        else:
+            return HttpResponseRedirect(lasturl)
+    else:
+        product = Product.objects.get(id=id)
+        images = Images.objects.filter(product_id=id)
+        form = ProductImageForm()
+        context = {
+            'product':product,
+            'images':images,
+            'form':form
+        }
+        return render(request,'content_gallery.html',context)

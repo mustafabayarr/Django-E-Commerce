@@ -104,8 +104,6 @@ class ProductForm(ModelForm):
         }
 
 
-
-
 class Images(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     title = models.CharField(max_length=50,blank=True) #blank = True alanı boş bırakabiliriz anlamına gelir.
@@ -120,6 +118,11 @@ class Images(models.Model):
         else:
             return ""
     image_tag.short_description = 'Image'
+
+class ProductImageForm(ModelForm):
+    class Meta:
+        model = Images
+        fields = ['title','image']
 
 
 class Comment(models.Model):

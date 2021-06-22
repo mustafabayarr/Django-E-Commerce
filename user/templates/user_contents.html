@@ -31,6 +31,7 @@
                             <th scope="col">Image</th>
                             <th scope="col">Category</th>
                             <th scope="col">Title</th>
+                            <th scope="col">Gallery</th>
                             <th scope="col">Price</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Date</th>
@@ -44,6 +45,12 @@
                                 <td scope="col">
                                     <a href="/product/{{ rs.id }}/{{ rs.slug }}">
                                         {{ rs.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a
+                                       onclick="window.open('/user/contentaddimage/{{ rs.id }}','gallery','height=600,width=800,top=50,left=150')">
+                                        Gallery
                                     </a>
                                 </td>
                                 <td scope="col">{{ rs.price }}</td>
