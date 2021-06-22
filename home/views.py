@@ -22,6 +22,7 @@ def index(request):
     popular = Product.objects.all()[:4]
     latest = Product.objects.all().order_by('-id')[:4]
     featured = Product.objects.all().order_by('?')[:4]
+    products = Product.objects.all()[:10]
 
 
 
@@ -31,6 +32,7 @@ def index(request):
                'popular':popular,
                'latest':latest,
                'featured':featured,
+               'products':products
                }
     return render(request,'index.html',context)
 
