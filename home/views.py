@@ -79,6 +79,7 @@ def category_products(request,id,slug):
 
 
 def product_detail(request,id,slug):
+    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     product = Product.objects.get(pk=id)
     images = Images.objects.filter(product_id=id)
@@ -87,7 +88,8 @@ def product_detail(request,id,slug):
     context = {'product':product,
                'category':category,
                'images':images,
-               'comments':comments}
+               'comments':comments,
+               'setting': setting}
     return render(request, 'product_detail.html', context)
 
 
@@ -131,7 +133,8 @@ def login_view(request):
             login(request,user)
             return HttpResponseRedirect('/')
     category = Category.objects.all()
-    context = {'category':category,}
+    setting = Setting.objects.get(pk=1)
+    context = {'category':category,'setting': setting}
     return render(request,'login.html',context)
 
 
@@ -153,12 +156,14 @@ def register_view(request):
         return HttpResponseRedirect('/')
     form = SignUpForm()
     category = Category.objects.all()
-    context = {'category':category,'form':form}
+    setting = Setting.objects.get(pk=1)
+    context = {'category':category,'form':form,'setting': setting}
     return render(request,'register.html',context)
 
 
 def faq(request):
     category = Category.objects.all()
+    setting = Setting.objects.get(pk=1)
     faq = FAQ.objects.all().order_by('ordernumber')
-    context = {'category':category,'faq':faq}
+    context = {'category':category,'faq':faq,'setting': setting}
     return render(request,'faq.html',context)

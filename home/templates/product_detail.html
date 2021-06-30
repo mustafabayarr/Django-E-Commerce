@@ -116,18 +116,11 @@
                                         </div>
                                         <div class="tab-pane fade " id="review">
                                             <div class="aa-product-review-area">
-                                                <h4>2 Reviews for T-Shirt</h4>
+                                                <h4>Reviews</h4>
                                                 <ul class="aa-review-nav">
                                                     {% for rs in comments %}
                                                         <li>
                                                             <div class="media">
-                                                                <div class="media-left">
-                                                                    <a href="#">
-                                                                        <img class="media-object"
-                                                                             src="{{ rs.image.url }}"
-                                                                             alt="girl image">
-                                                                    </a>
-                                                                </div>
                                                                 <div class="media-body">
                                                                     <h4 class="media-heading">
                                                                         <strong>{{ rs.user.first_name }}</strong> -
